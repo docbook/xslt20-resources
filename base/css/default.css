@@ -113,6 +113,10 @@ div.informaltable  { padding-left: 3px;
                      padding-bottom: 5px;
                    }
 
+table {
+    border-collapse: collapse;
+}
+
 div.equation-wrapper
 div.title          { background-color: #CACACA;
                      padding: 3px;

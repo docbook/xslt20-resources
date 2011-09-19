@@ -1,14 +1,3 @@
-/* ============================================================ */
-
-@media print
-{
-    .newpage {
-        page-break-before: always;
-    }
-}
-
-/* ============================================================ */
-
 html {
     font-family: "DejaVu Sans", sans-serif;
     font-weight: normal;
@@ -141,6 +130,12 @@ img {
 
 /* ============================================================ */
 
+.helpdialog {
+    font-size: 12pt;
+}
+
+/* ============================================================ */
+
 .timestamp {
     position: absolute;
     font-size: 8pt;
@@ -220,4 +215,34 @@ a:visited {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+/* ============================================================ */
+
+.timer {
+    position: relative;
+    top: 40;
+    left: -80;
+    height: 0px;
+    width: 0px;
+    font-size: 8pt;
+    font-weight: medium;
+}
+
+.overtime {
+    color: red;
+    font-style: normal;
+}
+
+.lowtime {
+    font-style: italic;
+}
+
+/* ============================================================ */
+
+@media print
+{
+    .newpage {
+        page-break-before: always;
+    }
 }

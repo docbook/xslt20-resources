@@ -37,6 +37,13 @@ var totSlides = 0;
 var ignoreHashChange = false;
 var helpDialog = undefined;
 
+var timer = false
+var advance = -1
+var countdown = -1;
+var startDT = new Date();
+var slideDT = new Date();
+var warnTime = 0;
+
 $(document).ready(function(){
     // Do this first so that it fades even if it would be hidden
     var shownav = $(".shownav");
@@ -60,6 +67,8 @@ function setupMultipage() {
     setup_reveal($(".foil"), 0, window.location.toString().indexOf("?dir=bw") >= 0);
 
     $(document).keydown(keydown);
+
+    // Timer, auto-advance, etc. only apply in the single page case
 
     if (curSlide == 0) {
         var slide = $(".foil");
@@ -85,12 +94,32 @@ function setupSinglepage() {
 
     newaddress();
 
-    //$(document).keydown (function(event){console.log("dn: ", event.which)});
-    //$(document).keypress(function(event){console.log("pr: ", event.which)});
-    //$(document).keyup   (function(event){console.log("up: ", event.which)});
-
     $(document).keydown(keydown);
     $(window).hashchange(newaddress);
+
+    if ($("meta[name='slides.timer']").size() > 0) {
+        timer = $($("meta[name='slides.timer']").get(0)).attr("content") === "true";
+        timerDiv = $("<div class='timer'></div>");
+        $("body").append(timerDiv);
+    }
+
+    if ($("meta[name='slides.countdown']").size() > 0) {
+        var cd = $($("meta[name='slides.countdown']").get(0)).attr("content");
+        countdown = timeToSeconds(cd);
+        if (countdown > 0) {
+            warnTime = Math.floor(countdown * 0.2);
+        }
+    }
+
+    timer = timer || (countdown > 0);
+
+    if ($("meta[name='slides.auto-advance']").size() > 0) {
+        advance = parseInt($($("meta[name='slides.auto-advance']").get(0)).attr("content"))
+    }
+
+    if (timer || (advance > 0)) {
+        $("body").everyTime(1000, checkTime);
+    }
 
     var slide = $($(".foil")[curSlide - 1]);
     var msgdiv = $("<div>Press F1 for navigation help</div>")
@@ -101,6 +130,91 @@ function setupSinglepage() {
     msgdiv.css("font-size", "12pt");
     slide.append(msgdiv);
     msgdiv.fadeOut(3000);
+}
+
+function checkTime(i) {
+    var nowDT = new Date();
+    var advleft = 0;
+
+    // Is the .timer div in the right place?
+    var slide = $($(".foil")[curSlide - 1]);
+    var footer = $(slide).find(".footer");
+    var timer = $(footer).find(".timer");
+    if ($(timer).size() == 0) {
+        // If not, move it
+        timer = $(".timer").detach();
+        $(footer).prepend(timer);
+    }
+
+    if (advance > 0 && curSlide < totSlides) {
+        var secs = Math.floor((nowDT.getTime() - slideDT.getTime()) / 1000);
+        if (secs >= advance) {
+            goto(curSlide + 1);
+            slideDT = nowDT;
+        } else {
+            advleft = advance - secs;
+        }
+    }
+
+    if (timer) {
+        var prefix = "";
+        var secs = Math.floor((nowDT.getTime() - startDT.getTime()) / 1000);
+        if (countdown > 0) {
+            secs = countdown - secs;
+            if (secs > 0 && secs < warnTime) {
+                $(".timer").addClass("lowtime");
+            }
+            if (secs < 0) {
+                $(".timer").removeClass("lowtime");
+                $(".timer").addClass("overtime");
+                secs = -secs;
+                prefix = "-";
+            }
+        }
+
+        var min = Math.floor(secs / 60);
+        var sec = secs - (min * 60);
+        if (min > 59) {
+            var hours = Math.floor(min / 60);
+            min = min - (hours * 60);
+            prefix = prefix + hours + ":";
+        }
+
+        var time = prefix + min + ":";
+        if (sec < 10) { time += "0"; }
+        time += sec;
+
+        if (advleft > 0) {
+            time += "/" + advleft;
+        }
+
+        $(".timer").html(time);
+    }
+}
+
+function timeToSeconds(timeStr) {
+    var time = 0;
+
+    if (timeStr.indexOf(":") > 0) {
+        var hour = 0;
+        var min = timeStr.substring(0, timeStr.indexOf(":"));
+        var sec = timeStr.substring(timeStr.indexOf(":")+1);
+        if (sec.indexOf(":") > 0) {
+            hour = min;
+            min = sec.substring(0, sec.indexOf(":"));
+            sec = sec.substring(sec.indexOf(":")+1);
+        }
+
+        hour = parseInt(hour);
+        min = parseInt(min);
+        sec = parseInt(sec);
+
+        time = hour*3600 + min*60 + sec;
+    } else {
+        time = parseInt(timeStr);
+    }
+
+    return time;
 }
 
 function setupHelpDialog() {
@@ -267,6 +381,7 @@ function goto(slide) {
     oldslide.css("display","none")
     newslide.css("display","block")
 
+    slideDT = new Date();
     curSlide = slide
 
     var hash = ""

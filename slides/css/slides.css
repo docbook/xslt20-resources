@@ -25,7 +25,7 @@ body {
 .body {
     overflow: auto;
     padding-bottom: 65px;
-    padding-right: 1in;
+    padding-right: 2em;
 }
 
 .header {
@@ -126,6 +126,17 @@ img {
 
 .foilgroup .footer {
     display: none;
+}
+
+/* ============================================================ */
+
+.foilinset {
+    border: solid black 1px;
+    padding: 1em;
+    margin-left: 3em;
+    width: 40%;
+    float: right;
+    font-size: 10pt;
 }
 
 /* ============================================================ */

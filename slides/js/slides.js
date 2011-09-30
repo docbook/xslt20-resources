@@ -36,6 +36,7 @@ var curSlide = 1;
 var totSlides = 0;
 var ignoreHashChange = false;
 var helpDialog = undefined;
+var localKey = null;
 
 var timer = false
 var advance = -1
@@ -55,6 +56,15 @@ $(document).ready(function(){
         setupMultipage();
     } else {
         setupSinglepage();
+    }
+
+    if ($("meta[name='localStorage.key']").size() > 0) {
+        localKey = $("meta[name='localStorage.key']").attr("content");
+        if (window.addEventListener) {
+            window.addEventListener("storage", storageChange, false);
+        } else {
+            window.attachEvent("onstorage", storageChange);
+        };
     }
 });
 
@@ -243,6 +253,16 @@ function setupHelpDialog() {
     helpDialog = $(div);
 }
 
+function storageChange(evt) {
+    if (!evt) {
+        evt = window.event;
+    }
+
+    if (evt.key == localKey) {
+        goto(evt.newValue);
+    }
+}
+
 function newaddress() {
     if (ignoreHashChange) {
         ignoreHashChange = false;
@@ -382,7 +402,11 @@ function goto(slide) {
     newslide.css("display","block")
 
     slideDT = new Date();
-    curSlide = slide
+    curSlide = parseInt(slide);
+
+    if (localKey != null) {
+        localStorage.setItem(localKey, curSlide);
+    }
 
     var hash = ""
     if (curSlide > 1) {
@@ -402,6 +426,10 @@ function goto(slide) {
 }
 
 function setup_reveal(newslide, slide, reveal_all) {
+    if (newslide.find(".foilinset").size() > 0) {
+        return;
+    }
+
     newslide.find(".reveal1").each(function() {
         $(this).addClass("reveal");
     });

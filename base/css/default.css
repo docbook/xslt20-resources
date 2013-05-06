@@ -313,3 +313,14 @@ div.title {
 div.annotation-content {
     padding: 10px;
 }
+
+td.verbatimlinenumbers {
+  border-right: 1px solid black;
+  padding-right: 0.5em;
+  white-space: pre;
+}
+
+td.verbatimlines {
+  padding-left: 1em;
+  white-space: pre;
+}

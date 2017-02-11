@@ -2,9 +2,9 @@
 @import url("normalize.css");
 
 body {
-    font-family: serif;
-    padding-left: 1em;
-    padding-right: 1em;
+   font: 100%/1.5 serif;
+   padding-left: 1em;
+   padding-right: 1em;
 }
 
 ul.toc {
@@ -63,15 +63,6 @@ section {
 
 .section-titlepage {
     margin-left: -0.25in;
-}
-
-span.linenumber {
-    padding-right: 10px;
-    border-right: 1px solid black;
-}
-
-span.linenumber-separator {
-    padding-right: 5px;
 }
 
 div.address {
@@ -323,4 +314,23 @@ td.verbatimlinenumbers {
 td.verbatimlines {
   padding-left: 1em;
   white-space: pre;
+}
+
+div.calloutlist dl {
+  width: 100%;
+  overflow: hidden;
+}
+
+div.calloutlist dl dt {
+  float: left;
+  width: 30px;
+}
+
+div.calloutlist dl dd {
+  margin-left: 30px;
+}
+
+div.calloutlist dl dd :first-child {
+  margin-top: 0px;
+  padding-top: 0px;
 }

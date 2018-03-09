@@ -5,13 +5,14 @@
 code[class*="language-"],
 pre[class*="language-"] {
 	color: black;
+	background: none;
 	text-shadow: 0 1px white;
 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-	direction: ltr;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
 	word-break: normal;
+	word-wrap: normal;
 	line-height: 1.5;
 
 	-moz-tab-size: 4;
@@ -59,6 +60,7 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
+	white-space: normal;
 }
 
 .token.comment,
@@ -140,17 +142,12 @@ pre[data-line] {
 	position: absolute;
 	left: 0;
 	right: 0;
-        padding-top: inherit;
-        padding-bottom: inherit;
-        padding-left: 0;
-        padding-right: 0;
+	padding: inherit 0;
 	margin-top: 1em; /* Same as .prism’s padding-top */
 
 	background: hsla(24, 20%, 50%,.08);
-	background: -moz-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-	background: -webkit-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-	background: -o-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-	background: linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+	background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+
 	line-height: inherit;
 	white-space: pre;
 }
@@ -172,12 +169,18 @@ pre[data-line] {
 		text-shadow: none;
 		box-shadow: 0 1px white;
 	}
-	
+
 	.line-highlight[data-end]:after {
 		content: attr(data-end);
 		top: auto;
 		bottom: .4em;
 	}
+
+.line-numbers .line-highlight:before,
+.line-numbers .line-highlight:after {
+	content: none;
+}
+
 pre.line-numbers {
 	position: relative;
 	padding-left: 3.8em;
@@ -186,6 +189,7 @@ pre.line-numbers {
 
 pre.line-numbers > code {
 	position: relative;
+    white-space: inherit;
 }
 
 .line-numbers .line-numbers-rows {
@@ -210,32 +214,3 @@ pre.line-numbers > code {
 			padding-right: 0.8em;
 			text-align: right;
 		}
-pre[class*='language-'] {
-	position: relative;
-}
-pre[class*='language-'][data-language]::before {
-	content: attr(data-language);
-	color: black;
-	background-color: #CFCFCF;
-	display: inline-block;
-	position: absolute;
-	bottom: auto;
-	left: auto;
-	top: 0;
-	right: 0;
-	width: auto;
-	height: auto;
-	font-size: 0.9em;
-	border-radius: 0 0 0 5px;
-	padding: 0 0.5em;
-	text-shadow: none;
-	z-index: 1;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	-webkit-transform: none;
-	-moz-transform: none;
-	-ms-transform: none;
-	-o-transform: none;
-	transform: none;
-}

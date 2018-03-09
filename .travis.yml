@@ -1,0 +1,12 @@
+language: java
+script: gradle dist
+sudo: false
+deploy:
+  provider: releases
+  api_key:
+    secure: KOKqiP9d4EWgDG9amX3Cq9k+8isNAbvXrbqdiu5E8qxBtI3GF0TuhCFvZCMn6wyhZrot8JfkS1dmDTZaoCj2x+QHtDJSKiRhKoxYdmB+ffBBpbAylGHqVV24N+MzBP6V2XvxCeDhOIIYIhJfWT+uolV8zJhW7CLV5eCOJ/kwBzE=
+  skip_cleanup: true
+  file: build/distributions/docbook-xslt20-resources-$TRAVIS_TAG.zip
+  on:
+    tags: true
+    all_branches: true

@@ -1,10 +1,44 @@
 /* FIXME: Should normalize.css be inlined to remove the server round trip? */
-@import url("normalize.css");
+
+@media screen {
+   @import url("normalize.css");
+}
+
+@media paged {
+   @import url("paged-normalize.css");
+}
+
+/* ===================================================== */
+/* Undo some of the things normalize does because they
+   seem to have negative consequences.
+*/
+
+td,
+th {
+  padding: 2px;
+}
+
+/* ===================================================== */
+
+html {
+   background-color: #FFFFF8;
+   color: #111111;
+}
 
 body {
    font: 100%/1.5 serif;
    padding-left: 1em;
    padding-right: 1em;
+}
+
+body.draft {
+   background-image: url("../img/draft.svg");
+   background-repeat: no-repeat;
+   background-position: center center;
+}
+
+div.toc {
+   border-top: 1px solid black;
 }
 
 ul.toc {
@@ -22,6 +56,20 @@ ul.toc {
 ul.toc a,
 ul.toc a:visited {
     text-decoration: none;
+}
+
+.callout a,
+.callout a:visited,
+a.callout-link,
+a.callout-link:visited,
+a.co,
+a.co:visited {
+   text-decoration: none;
+   color: inherit;
+}
+
+.callout-bug {
+   text-decoration: none;
 }
 
 div.epigraph {
@@ -69,8 +117,11 @@ div.address {
     white-space: pre
 }
 
-div.literallayout {
-    white-space: pre
+pre.literallayout,
+pre.literallayout code,
+pre.address,
+pre.address code {
+   font-family: inherit!important;
 }
 
 span.linenumber {
@@ -91,6 +142,25 @@ div.footnote p {
     padding-top: 1px;
     margin-bottom: 0px;
     padding-bottom: 1px;
+}
+
+tbody.footnotes tr:first-child td {
+   padding-top: 0.5em;
+}
+
+.footnote-wrapper {
+   margin: auto;
+   clear: left;
+}
+
+.footnote-symbol-wrapper {
+   float: left;
+   overflow: hidden;
+   min-width: 1.25em; /* Even out any raggedness caused by different numbers */
+}
+
+.footnote-body-wrapper {
+   overflow: hidden;
 }
 
 div.title {
@@ -193,6 +263,10 @@ div.caption {
     font-family: sans-serif;
 }
 
+.longdesc-list {
+   display: none;
+}
+
 div.longdesc-link {
     position: absolute;
     right: 10px;
@@ -287,22 +361,42 @@ div.sidebar-content {
     padding: 10px;
 }
 
-div.annotation {
-    border: solid #afafaf 1px;
-    margin-left: 35px;
-    margin-right: 70px;
-    margin-top: 1ex;
-    margin-bottom: 1ex;
+.annotations-list {
+   display: none;
 }
 
-div.annotation
-div.title {
+.annotation {
+   border: solid #afafaf 1px;
+   margin-left: 35px;
+   margin-right: 70px;
+   margin-top: 1ex;
+   margin-bottom: 1ex;
+}
+
+.annotation-content {
+    padding: 10px;
+}
+
+.annotation
+.title {
     background-color: #CACACA;
     padding: 3px;
 }
 
-div.annotation-content {
-    padding: 10px;
+.annotation-hide {
+   display: none;
+}
+
+.annotation-show {
+   display: block;
+}
+
+.annotation-showbug {
+   display: inline;
+}
+
+.annotation-hidebug {
+   display: none;
 }
 
 td.verbatimlinenumbers {
@@ -333,4 +427,8 @@ div.calloutlist dl dd {
 div.calloutlist dl dd :first-child {
   margin-top: 0px;
   padding-top: 0px;
+}
+
+.inline-icon {
+   display: inline-block!important;
 }

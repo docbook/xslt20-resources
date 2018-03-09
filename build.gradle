@@ -18,7 +18,7 @@ task copyAll(dependsOn: [ "copyBase", "copySlides", "copyPublishers" ]) {
 task copyBase() {
   // nop
 }
-["js","css","img"].each { String dir ->
+["js","css","img","xml"].each { String dir ->
   String taskName = "copyBase_" + dir
   Task t = task "$taskName" (type: Copy) {
     doFirst {
@@ -35,7 +35,7 @@ task copyBase() {
 task copySlides() {
   // nop
 }
-["js","css"].each { String dir ->
+["js","css", "xml"].each { String dir ->
   String taskName = "copySlides_" + dir
   Task t = task "$taskName" (type: Copy) {
     doFirst {
@@ -70,7 +70,7 @@ copySlides.dependsOn "copySlides_imgPrint"
 task copyPublishers() {
   // nop
 }
-["js","css","img"].each { String dir ->
+["js","css","img", "xml"].each { String dir ->
   String taskName = "copyPublishers_" + dir
   Task t = task "$taskName" (type: Copy) {
     doFirst {

@@ -1,0 +1,97 @@
+// This Gradle script builds the resources distribution
+
+// There's nothing java in here, but apparenlty the java plugin
+// makes magic things like reading gradle.properties and directing
+// zip output into build/distributions work. :-(
+plugins {
+  id "java"
+}
+
+defaultTasks 'copyAll'
+
+task copyAll(dependsOn: [ "copyBase", "copySlides", "copyPublishers" ]) {
+  // nop
+}
+
+// ============================================================
+
+task copyBase() {
+  // nop
+}
+["js","css","img"].each { String dir ->
+  String taskName = "copyBase_" + dir
+  Task t = task "$taskName" (type: Copy) {
+    doFirst {
+      mkdir("build/stage/" + dir)
+    }
+    from "base/" + dir
+    into "build/stage/" + dir
+  }
+  copyBase.dependsOn "$taskName"
+}
+
+// ============================================================
+
+task copySlides() {
+  // nop
+}
+["js","css"].each { String dir ->
+  String taskName = "copySlides_" + dir
+  Task t = task "$taskName" (type: Copy) {
+    doFirst {
+      mkdir("build/stage/" + dir)
+    }
+    from "slides/" + dir
+    into "build/stage/" + dir
+  }
+  copySlides.dependsOn "$taskName"
+}
+
+task copySlides_img(type: Copy) {
+  doFirst {
+    mkdir("build/stage/img/slides")
+  }
+  from "slides/img"
+  into "build/stage/img/slides"
+}
+copySlides.dependsOn "copySlides_img"
+
+task copySlides_imgPrint(type: Copy) {
+  doFirst {
+    mkdir("build/stage/img/slides/print")
+  }
+  from "slides/print"
+  into "build/stage/img/slides/print"
+}
+copySlides.dependsOn "copySlides_imgPrint"
+
+// ============================================================
+
+task copyPublishers() {
+  // nop
+}
+["js","css","img"].each { String dir ->
+  String taskName = "copyPublishers_" + dir
+  Task t = task "$taskName" (type: Copy) {
+    doFirst {
+      mkdir("build/stage/" + dir)
+    }
+    from "publishers/" + dir
+    into "build/stage/" + dir
+  }
+  copyPublishers.dependsOn "$taskName"
+}
+
+// ============================================================
+
+task dist(type: Zip, dependsOn: [ "copyAll" ]) {
+  from('build/stage')
+  into 'docbook-xslt20-resources-' + version
+  archiveName 'docbook-xslt20-resources-' + version + ".zip"
+}
+
+// ============================================================
+
+clean.doLast {
+  delete "build"
+}

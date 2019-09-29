@@ -73,8 +73,11 @@ The `base` resources include `css`, `img`, `js`, and `xml` resources.
 
 ### Publishers resources
 
-The `publishers` resources consist entirely of a single CSS file that
-adds styling for some of the new elements in the Publishers extension.
+Additional CSS for elements added in the Publishers customization.
+
+* CSS:
+
+    * `publishers.css`, additional styling for publishers elements.
 
 ### Slides resources
 

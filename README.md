@@ -45,11 +45,16 @@ The `base` resources include `css`, `img`, `js`, and `xml` resources.
 
     Contains a variety of default images:
 
-    * Callout numbers ![1](blob/master/base/img/1.png), ![2](blob/master/base/img/1.png), etc.
-    * Admonitions ![Note](blob/master/base/img/note.png), ![Caution](blob/master/base/img/caution.png), etc.
-    * Navigation images ![Next](blob/master/base/img/next.gif), ![Next](blob/master/base/img/next.png), etc.
-    * ToC controls ![Plus](blob/master/base/img/toc-plus.png), ![Minus](blob/master/base/img/toc-minus.png), etc.
-    * Annotation controls ![Open](blob/master/base/img/annot-open.png), ![Close](blob/master/base/img/annot-close.png), etc.
+    * Callout numbers ![1](https://github.com/ndw/xslt20-resources/blob/master/base/img/1.png),
+      ![2](https://github.com/ndw/xslt20-resources/blob/master/base/img/1.png), etc.
+    * Admonitions ![Note](https://github.com/ndw/xslt20-resources/blob/master/base/img/note.png),
+      ![Caution](https://github.com/ndw/xslt20-resources/blob/master/base/img/caution.png), etc.
+    * Navigation images ![Next](https://github.com/ndw/xslt20-resources/blob/master/base/img/next.gif),
+      ![Next](https://github.com/ndw/xslt20-resources/blob/master/base/img/next.png), etc.
+    * ToC controls ![Plus](https://github.com/ndw/xslt20-resources/blob/master/base/img/toc-plus.png),
+      ![Minus](https://github.com/ndw/xslt20-resources/blob/master/base/img/toc-minus.png), etc.
+    * Annotation controls ![Open](https://github.com/ndw/xslt20-resources/blob/master/base/img/annot-open.png),
+      ![Close](https://github.com/ndw/xslt20-resources/blob/master/base/img/annot-close.png), etc.
     * A “draft” image suitable for watermarking draft documents.
 
     And a few other odds-and-ends.

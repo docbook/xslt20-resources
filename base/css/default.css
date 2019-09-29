@@ -1,12 +1,10 @@
-/* FIXME: Should normalize.css be inlined to remove the server round trip? */
+/* Default stylesheet for HTML rendered from DocBook by the
+   DocBook XSLT 2.0 Stylesheets.
 
-@media screen {
-   @import url("normalize.css");
-}
+   Version 2.1.0
+*/
 
-@media paged {
-   @import url("paged-normalize.css");
-}
+@import url("normalize.css");
 
 /* ===================================================== */
 /* Undo some of the things normalize does because they

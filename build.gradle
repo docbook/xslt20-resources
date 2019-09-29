@@ -1,6 +1,6 @@
 // This Gradle script builds the resources distribution
 
-// There's nothing java in here, but apparenlty the java plugin
+// There's nothing java in here, but apparently the java plugin
 // makes magic things like reading gradle.properties and directing
 // zip output into build/distributions work. :-(
 plugins {
